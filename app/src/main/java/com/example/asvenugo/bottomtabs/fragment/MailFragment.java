@@ -1,0 +1,135 @@
+package com.example.asvenugo.bottomtabs.fragment;
+
+
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteCursorDriver;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQuery;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.asvenugo.bottomtabs.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MailFragment extends Fragment {
+    private Cursor c;
+
+    @Bind(R.id.email_button)
+    Button sendbtn;
+    @Bind(R.id.edit_email)
+    EditText editText;
+
+
+    private OnFragmentInteractionListener mListener;
+
+    public MailFragment() {
+        // Required empty public constructor
+    }
+
+    public static MailFragment newInstance() {
+
+        Bundle args = new Bundle();
+        MailFragment fragment = new MailFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_mail, container, false);
+        ButterKnife.bind(this, view);
+        return view;
+
+    }
+
+    @OnClick(R.id.email_button)
+    void doneClicked() {
+        String to = editText.getText().toString();
+        String subject = "Test Email";
+
+        SQLiteDatabase.CursorFactory cursorFactory = new SQLiteDatabase.CursorFactory() {
+            @Override
+            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
+                return null;
+            }
+        };
+
+        SQLiteDatabase db = SQLiteDatabase.openDatabase("Date", cursorFactory, Context.MODE_PRIVATE );
+        c = db.rawQuery("SELECT * FROM datesel;", null);
+        int date = c.getInt(1);
+        int month = c.getInt(2);
+        int year = c.getInt(3);
+
+        String message = String.valueOf(date)+"/"+String.valueOf(month)+"/"+String.valueOf(year);
+
+        Intent email = new Intent(Intent.ACTION_SEND);
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+        email.putExtra(Intent.EXTRA_SUBJECT, subject);
+        email.putExtra(Intent.EXTRA_TEXT, message);
+
+        email.setType("message/rfc822");
+        startActivity(Intent.createChooser(email, "Choose a client"));
+
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p/>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
+}
+
