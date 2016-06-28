@@ -5,9 +5,12 @@
     tools:context="com.example.asvenugo.bottomtabs.fragment.MapFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <fragment
+        android:id="@+id/map"
+        android:layout_below="@+id/searchTxt"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:layout="@layout/fragment_main" />
 
 </FrameLayout>

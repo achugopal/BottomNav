@@ -8,28 +8,43 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.asvenugo.bottomtabs.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MapFragment extends Fragment {
+public class MapsFragment extends Fragment {
+
+
+    GoogleMap googleMap;
+    ArrayList<LatLng> markerPoints;
 
     private OnFragmentInteractionListener mListener;
 
-    public MapFragment() {
+    public MapsFragment() {
         // Required empty public constructor
     }
 
-
-    public static MapFragment newInstance() {
+    public static MapsFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        MapFragment fragment = new MapFragment();
+        MapsFragment fragment = new MapsFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
     }
 
 
@@ -37,7 +52,14 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_map, container, false);
+    }
+
+    private void initilizeMap() {
+        if (googleMap == null) {
+            googleMap =((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -79,4 +101,3 @@ public class MapFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
-
