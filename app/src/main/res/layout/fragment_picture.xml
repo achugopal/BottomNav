@@ -5,9 +5,28 @@
     tools:context="com.example.asvenugo.bottomtabs.fragment.PictureFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageViewFullSized"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/placeholder" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/imageViewThumbnail"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/placeholder" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        android:id="@+id/button"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_margin="10dp" />
 
 </FrameLayout>
