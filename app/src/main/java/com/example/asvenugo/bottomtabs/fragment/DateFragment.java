@@ -97,7 +97,6 @@ public class DateFragment extends Fragment {
         };
 
 
-
         db = SQLiteDatabase.openOrCreateDatabase("Date", cursorFactory, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS datesel(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, date INTEGER, month INTEGER, year INTEGER);");
 

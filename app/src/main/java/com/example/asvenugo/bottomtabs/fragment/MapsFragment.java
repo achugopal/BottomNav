@@ -58,7 +58,7 @@ public class MapsFragment extends Fragment {
 
     private void initilizeMap() {
         if (googleMap == null) {
-            googleMap =((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
+       //     googleMap =((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
         }
     }
 

@@ -8,7 +8,8 @@ import android.os.Bundle;
 
 import com.example.asvenugo.bottomtabs.fragment.DateFragment;
 import com.example.asvenugo.bottomtabs.fragment.MailFragment;
-import com.example.asvenugo.bottomtabs.fragment.MapFragment;
+
+import com.example.asvenugo.bottomtabs.fragment.MapsFragment;
 import com.example.asvenugo.bottomtabs.fragment.PictureFragment;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
@@ -22,7 +23,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         switch (position)
         {
             case 0: return DateFragment.newInstance();
-            case 1: return MapFragment.newInstance();
+            case 1: return MapsFragment.newInstance();
             case 2: return PictureFragment.newInstance();
             case 3: return MailFragment.newInstance();
         }
