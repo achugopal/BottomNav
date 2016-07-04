@@ -17,6 +17,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -52,8 +54,9 @@ public class MapsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        View view = inflater.inflate(R.layout.fragment_mail, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     private void initilizeMap() {

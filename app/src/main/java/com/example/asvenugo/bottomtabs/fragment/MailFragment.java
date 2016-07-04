@@ -18,7 +18,7 @@ import android.widget.EditText;
 
 import com.example.asvenugo.bottomtabs.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,9 +28,9 @@ import butterknife.OnClick;
 public class MailFragment extends Fragment {
     private Cursor c;
 
-    @Bind(R.id.email_button)
+    @BindView(R.id.email_button)
     Button sendbtn;
-    @Bind(R.id.edit_email)
+    @BindView(R.id.edit_email)
     EditText editText;
 
 

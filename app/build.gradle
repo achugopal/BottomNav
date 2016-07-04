@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.example.asvenugo.bottomtabs"
@@ -10,10 +10,13 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-
+        multiDexEnabled true
     }
     repositories {
         maven { url 'http://repo1.maven.org/maven2' }
+        jcenter {
+            url 'http://jcenter.bintray.com/'
+        }
     }
     buildTypes {
         debug {
@@ -31,8 +34,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:support-v4:23.4.0'
-    compile 'com.google.android.gms:play-services:9.0.2'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.jakewharton:butterknife:8.1.0'
+    compile 'com.google.android.gms:play-services:9.2.0'
+
+    //apt 'com.jakewharton:butterknife-compiler:8.1.0'
 }

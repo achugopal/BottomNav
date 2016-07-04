@@ -17,29 +17,30 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asvenugo.bottomtabs.MySQLiteOpenHelper;
 import com.example.asvenugo.bottomtabs.R;
 
 import java.text.SimpleDateFormat;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DateFragment extends Fragment {
 
-    private SQLiteDatabase db;
-    private Cursor c;
 
-    @Bind(R.id.selected)
+    @BindView(R.id.selected)
     TextView selectedTxt;
-    @Bind(R.id.doneBtn)
+    @BindView(R.id.doneBtn)
     Button doneBtn;
-    @Bind(R.id.datePicker)
+    @BindView(R.id.datePicker)
     DatePicker datePicker;
     private DatePickedListener mListener;
+    private Unbinder unbinder;
 
     public DateFragment() {
         // Required empty public constructor
@@ -69,7 +70,8 @@ public class DateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_date, container, false);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
+        // ButterKnife.bind(this, view);
         return view;
     }
 
@@ -89,33 +91,27 @@ public class DateFragment extends Fragment {
     @OnClick(R.id.doneBtn)
     void doneClicked() {
 
-        SQLiteDatabase.CursorFactory cursorFactory = new SQLiteDatabase.CursorFactory() {
-            @Override
-            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
-                return null;
-            }
-        };
+        MySQLiteOpenHelper db = new MySQLiteOpenHelper(getActivity());
 
+        String datesel = db.getDate();
 
-        db = SQLiteDatabase.openOrCreateDatabase("Date", cursorFactory, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS datesel(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, date INTEGER, month INTEGER, year INTEGER);");
-
-        c = db.rawQuery("SELECT * FROM datesel;", null);
-        if (c!=null) {
-            String sql = "DELETE FROM datesel;";
-            db.execSQL(sql);
+        if (datesel != null) {
+            selectedTxt.setText(datesel);
+            db.removeDate();
         }
+
 
 
         int date = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();
         int year = datePicker.getYear();
 
-        String query = "INSERT INTO datesel (date,month, year) VALUES('"+date+"', '"+month+"', '"+year+"');";
-        db.execSQL(query);
-     //   Toast.makeText(context,"Saved Successfully", Toast.LENGTH_LONG).show();
+       // selectedTxt.setText(date+"/"+month+"/"+year);
 
-        selectedTxt.setText(date+"/"+month+"/"+year);
+        db.addDate(date, month, year);
+
+        String datesel2 = db.getDate();
+        selectedTxt.setText(datesel2);
 
         //selectedTxt.setText(datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+"/"+datePicker.getYear());
 
@@ -136,7 +132,8 @@ public class DateFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
+        unbinder.unbind();
+        // ButterKnife.unbind(this);
     }
 
     /**
