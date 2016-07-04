@@ -5,7 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CameraActivity extends ActionBarActivity {
+public class CameraActivity extends AppCompatActivity {
 
     // Storage for camera image URI components
     private final static String CAPTURED_PHOTO_PATH_KEY = "mCurrentPhotoPath";

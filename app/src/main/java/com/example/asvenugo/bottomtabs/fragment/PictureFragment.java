@@ -85,6 +85,7 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
 
         // Ensure that there's a camera activity to handle the intent
         CameraActivity activity = (CameraActivity)getActivity();
+
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
             // Create the File where the photo should go.
             // If you don't do this, you may get a crash in some devices.

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,8 @@ public class DateFragment extends Fragment {
     @OnClick(R.id.doneBtn)
     void doneClicked() {
 
+        Log.d("Inside DateFragment", "OnClick Button");
+
         MySQLiteOpenHelper db = new MySQLiteOpenHelper(getActivity());
 
         String datesel = db.getDate();
@@ -99,8 +102,6 @@ public class DateFragment extends Fragment {
             selectedTxt.setText(datesel);
             db.removeDate();
         }
-
-
 
         int date = datePicker.getDayOfMonth();
         int month = datePicker.getMonth();

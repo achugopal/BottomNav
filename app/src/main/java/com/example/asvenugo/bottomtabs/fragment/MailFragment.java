@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.asvenugo.bottomtabs.MySQLiteOpenHelper;
 import com.example.asvenugo.bottomtabs.R;
 
 import butterknife.BindView;
@@ -32,6 +33,8 @@ public class MailFragment extends Fragment {
     Button sendbtn;
     @BindView(R.id.edit_email)
     EditText editText;
+
+    private EmailPickedListener mListener1;
 
 
     private OnFragmentInteractionListener mListener;
@@ -68,28 +71,20 @@ public class MailFragment extends Fragment {
         String to = editText.getText().toString();
         String subject = "Test Email";
 
-        SQLiteDatabase.CursorFactory cursorFactory = new SQLiteDatabase.CursorFactory() {
-            @Override
-            public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery, String editTable, SQLiteQuery query) {
-                return null;
-            }
-        };
-
-        SQLiteDatabase db = SQLiteDatabase.openDatabase("Date", cursorFactory, Context.MODE_PRIVATE );
-        c = db.rawQuery("SELECT * FROM datesel;", null);
-        int date = c.getInt(1);
-        int month = c.getInt(2);
-        int year = c.getInt(3);
-
-        String message = String.valueOf(date)+"/"+String.valueOf(month)+"/"+String.valueOf(year);
+        MySQLiteOpenHelper db = new MySQLiteOpenHelper(getActivity());
+        String datesel = db.getDate();
 
         Intent email = new Intent(Intent.ACTION_SEND);
         email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
         email.putExtra(Intent.EXTRA_SUBJECT, subject);
-        email.putExtra(Intent.EXTRA_TEXT, message);
+        email.putExtra(Intent.EXTRA_TEXT, datesel);
 
         email.setType("message/rfc822");
         startActivity(Intent.createChooser(email, "Choose a client"));
+
+        if (mListener1 != null) {
+            mListener1.emailClicked(editText.getText().toString());
+        }
 
     }
 
@@ -130,6 +125,10 @@ public class MailFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public interface EmailPickedListener {
+        void emailClicked(String email);
     }
 }
 

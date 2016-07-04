@@ -11,8 +11,9 @@ import android.view.MenuItem;
 
 import com.example.asvenugo.bottomtabs.adapter.TabPagerAdapter;
 import com.example.asvenugo.bottomtabs.fragment.DateFragment;
+import com.example.asvenugo.bottomtabs.fragment.MailFragment;
 
-public class MainActivity extends AppCompatActivity implements DateFragment.DatePickedListener {
+public class MainActivity extends AppCompatActivity implements DateFragment.DatePickedListener, MailFragment.EmailPickedListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -78,4 +79,10 @@ public class MainActivity extends AppCompatActivity implements DateFragment.Date
     public void dateClicked(int year, int month, int day) {
         //selected date is received here
     }
+
+    @Override
+    public void emailClicked(String email) {
+
+    }
+
 }
