@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.asvenugo.bottomtabs.CameraActivity;
+import com.example.asvenugo.bottomtabs.MainActivity;
 import com.example.asvenugo.bottomtabs.R;
 
 import java.io.File;
@@ -84,7 +84,7 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Ensure that there's a camera activity to handle the intent
-//        CameraActivity activity = (CameraActivity)getActivity();
+        MainActivity activity = (MainActivity)getActivity();
 
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             // Create the File where the photo should go.
@@ -100,8 +100,8 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
-//                getActivity().setCapturedImageURI(fileUri);
-//                getActivity().setCurrentPhotoPath(fileUri.getPath());
+                activity.setCapturedImageURI(fileUri);
+                activity.setCurrentPhotoPath(fileUri.getPath());
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
                         fileUri);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
@@ -113,7 +113,7 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == Activity.RESULT_OK) {
             addPhotoToGallery();
-            CameraActivity activity = (CameraActivity)getActivity();
+            MainActivity activity = (MainActivity)getActivity();
 
             // Show the full sized image.
             setFullImageFromFilePath(activity.getCurrentPhotoPath(), mImageView);
@@ -137,14 +137,14 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        CameraActivity activity = (CameraActivity)getActivity();
+        MainActivity activity = (MainActivity)getActivity();
         activity.setCurrentPhotoPath("file:" + image.getAbsolutePath());
         return image;
     }
 
     protected void addPhotoToGallery() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        CameraActivity activity = (CameraActivity)getActivity();
+        MainActivity activity = (MainActivity)getActivity();
         File f = new File(activity.getCurrentPhotoPath());
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
