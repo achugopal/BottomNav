@@ -45,7 +45,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void addDate(Integer day, Integer month, Integer year) {
         Log.d("addDate", day.toString());
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
         values.put(DAY, day);
@@ -53,6 +53,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         values.put(YEAR, year);
 
         db.insert(TABLE_DATE, null, values);
+
         db.close();
     }
 
@@ -63,8 +64,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_DATE, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
+        if (cursor != null&&cursor.moveToFirst()) {
+
 
             day = cursor.getInt(cursor.getColumnIndex(DAY));
             month = cursor.getInt(cursor.getColumnIndex(MONTH));
@@ -75,6 +76,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 //            year = cursor.getInt(2);
 
             Log.d("Day in getdate", day.toString());
+        }
+        else {
+            return null;
         }
 
         dateString = day.toString() + "/" + month.toString() + "/" + year.toString();
