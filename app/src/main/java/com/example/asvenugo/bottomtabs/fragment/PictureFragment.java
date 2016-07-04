@@ -84,9 +84,9 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         // Ensure that there's a camera activity to handle the intent
-        CameraActivity activity = (CameraActivity)getActivity();
+//        CameraActivity activity = (CameraActivity)getActivity();
 
-        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
             // Create the File where the photo should go.
             // If you don't do this, you may get a crash in some devices.
             File photoFile = null;
@@ -94,16 +94,16 @@ public class PictureFragment extends Fragment implements Button.OnClickListener 
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                Toast toast = Toast.makeText(activity, "There was a problem saving the photo...", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getActivity(), "There was a problem saving the photo...", Toast.LENGTH_SHORT);
                 toast.show();
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri fileUri = Uri.fromFile(photoFile);
-                activity.setCapturedImageURI(fileUri);
-                activity.setCurrentPhotoPath(fileUri.getPath());
+//                getActivity().setCapturedImageURI(fileUri);
+//                getActivity().setCurrentPhotoPath(fileUri.getPath());
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-                        activity.getCapturedImageURI());
+                        fileUri);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }

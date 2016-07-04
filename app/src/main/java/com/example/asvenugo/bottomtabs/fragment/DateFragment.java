@@ -2,10 +2,6 @@ package com.example.asvenugo.bottomtabs.fragment;
 
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursorDriver;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQuery;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,14 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.asvenugo.bottomtabs.MySQLiteOpenHelper;
 import com.example.asvenugo.bottomtabs.R;
-
-import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +65,7 @@ public class DateFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_date, container, false);
         unbinder = ButterKnife.bind(this, view);
         // ButterKnife.bind(this, view);
+
         return view;
     }
 
